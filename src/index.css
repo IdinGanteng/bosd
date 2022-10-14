@@ -1,0 +1,40 @@
+@font-face {
+font-family: "OpenSans";
+src: local("OpenSans"),
+ url("./assets/fonts/OpenSans.ttf") format("truetype");
+/* font-weight: bold; */
+}
+
+
+body {
+  margin: 0;
+  /* font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif; */
+  font-family: "OpenSans";
+  -webkit-font-smoothing: antialiased;  
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@layer base {
+    svg { 
+        display: inline;
+        vertical-align: baseline; 
+    }
+}
+@layer utilities {
+  .animation-delay-2000 {
+    animation-delay: 2s;
+  }
+  .animation-delay-4000 {
+    animation-delay: 4s;
+  }
+}

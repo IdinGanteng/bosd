@@ -1,0 +1,15 @@
+.logo {
+  display: flex;
+  justify-content: center;
+  /* padding: 2rem; */
+  /* height: 32px;
+  margin: 16px;
+  background: rgb(0, 0, 0); */
+}
+
+.site-layout .site-layout-background {
+  background: #fff;
+}
+  [data-theme="dark"] .site-layout .site-layout-background {
+    background: #141414;
+  }

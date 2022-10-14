@@ -1,0 +1,104 @@
+stages:
+  - build
+#  - test
+#  - package
+  - deploy
+
+image: docker:19.03.5
+services:
+  - name: docker:19.03.5-dind
+    command: ["--experimental"]
+
+variables:
+ RANCHER_URL_DEV: "https://rancher.iboost.cronos.co.id/v3"
+ RANCHER_TOKEN_DEV: "token-nqn9r:6vqfrf4w2nttkg7vfxr7wrsz8kls9vj9bkl6lfksr7qjc7qg7vkjmm --context c-4g8x5:p-l6zxk"
+ RANCHER_URL_STAGING: "https://rancher.iboost.cronos.co.id/v3"
+ RANCHER_TOKEN_STAGING: "token-nqn9r:6vqfrf4w2nttkg7vfxr7wrsz8kls9vj9bkl6lfksr7qjc7qg7vkjmm --context c-4g8x5:p-l6zxk"
+ RANCHER_URL_PRO: "https://rancher.iboost.cronos.co.id/v3"
+ RANCHER_TOKEN_PRO: "token-nqn9r:6vqfrf4w2nttkg7vfxr7wrsz8kls9vj9bkl6lfksr7qjc7qg7vkjmm --context c-4g8x5:p-l6zxk"
+ IMAGE: "$CI_REGISTRY_IMAGE"
+ IMAGE_VERSION: "$CI_REGISTRY_IMAGE:$CI_COMMIT_BRANCH-$CI_COMMIT_SHORT_SHA-$CI_PIPELINE_ID"
+ IMAGE_TAGS: "$CI_REGISTRY_IMAGE:$CI_COMMIT_TAG"
+ DOCKER_TLS_CERTDIR: "/certs"
+ DOCKER_DRIVER: overlay2
+ DOCKER_BUILDKIT: 1
+ DOCKER_CLI_EXPERIMENTAL: enabled
+ BUILDX_URL: https://github.com/docker/buildx/releases/download/v0.5.1/buildx-v0.5.1.linux-amd64
+
+
+before_script:
+    - time=$(date +%Y%m%d%H%M)
+
+build_docker:
+  stage: build
+  script:
+    - mkdir -p $HOME/.docker/cli-plugins/
+    - wget -O $HOME/.docker/cli-plugins/docker-buildx $BUILDX_URL
+    - chmod a+x $HOME/.docker/cli-plugins/docker-buildx
+    - "echo -e '{\n  \"experimental\": \"enabled\"\n}' | tee $HOME/.docker/config.json"
+    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
+    - docker info
+    - docker context create tls-environment
+    - docker buildx create --name mybuilder --use tls-environment
+ #   - cp .env.$CI_COMMIT_BRANCH .env
+    - docker buildx build -t $IMAGE_VERSION --cache-from=type=registry,ref=$IMAGE:cache --cache-to=type=registry,ref=$IMAGE:cache,mode=max --push --progress=plain .
+  only:
+    refs:
+      - dev
+      - staging
+
+build_docker_release:
+  stage: build
+  script:
+    - mkdir -p $HOME/.docker/cli-plugins/
+    - wget -O $HOME/.docker/cli-plugins/docker-buildx $BUILDX_URL
+    - chmod a+x $HOME/.docker/cli-plugins/docker-buildx
+    - "echo -e '{\n  \"experimental\": \"enabled\"\n}' | tee $HOME/.docker/config.json"
+    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
+    - docker info
+    - docker context create tls-environment
+    - docker buildx create --name mybuilder --use tls-environment
+#    - cp .env.release .env
+    - docker buildx build -t $IMAGE_TAGS --cache-from=type=registry,ref=$IMAGE:cache --cache-to=type=registry,ref=$IMAGE:cache,mode=max --push --progress=plain  .
+  only:
+    - tags
+
+
+deploy_devel:
+  stage: deploy
+  image: grumblex/rancher-cli-kubectl
+  script:
+    - rancher login  --token=$RANCHER_TOKEN_DEV  --skip-verify $RANCHER_URL_DEV
+   # - rancher kubectl apply -f env-$CI_COMMIT_BRANCH.yaml
+    - rancher kubectl -n $CI_COMMIT_BRANCH  set image deployment $CI_PROJECT_NAME $CI_PROJECT_NAME=$IMAGE_VERSION
+    - rancher kubectl -n $CI_COMMIT_BRANCH rollout status  deployments $CI_PROJECT_NAME
+  only:
+    - dev
+  environment:
+   name: development
+
+deploy_staging:
+  stage: deploy
+  image: grumblex/rancher-cli-kubectl
+  script:
+    - rancher login --token=$RANCHER_TOKEN_STAGING  $RANCHER_URL_STAGING  --skip-verify
+ #   - rancher kubectl -n $CI_COMMIT_BRANCH  apply -f env-$CI_COMMIT_BRANCH.yaml
+    - rancher kubectl -n $CI_COMMIT_BRANCH  set image deployment $CI_PROJECT_NAME $CI_PROJECT_NAME=$IMAGE_VERSION
+    - rancher kubectl -n $CI_COMMIT_BRANCH rollout status  deployments $CI_PROJECT_NAME
+  only:
+    - staging
+  environment:
+   name: staging
+
+deploy_production_release:
+  stage: deploy
+  image: grumblex/rancher-cli-kubectl
+  script:
+    - rancher login --token=$RANCHER_TOKEN_PRO  $RANCHER_URL_PRO  --skip-verify
+#    - rancher kubectl -n $CI_COMMIT_BRANCH  apply -f env-$CI_COMMIT_BRANCH.yaml
+    - rancher kubectl -n release  set image deployment $CI_PROJECT_NAME $CI_PROJECT_NAME=$IMAGE_TAGS
+    - rancher kubectl -n release rollout status  deployments $CI_PROJECT_NAME
+  only:
+    - tags
+  environment:
+   name: release
