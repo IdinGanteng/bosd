@@ -109,10 +109,6 @@ export const SidebarData = [
     keys: 8,
   },
   {
-    title: "Setting",
-    path: "/setting",
-    icon:<SettingOutlined />,
-    cName: "nav-text",
-    keys: 9,
+    title:"Setting"
   },
 ];

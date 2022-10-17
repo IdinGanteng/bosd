@@ -6,7 +6,6 @@ import ApprovePayment from "../pages/Approve/Payment";
 import RequestNewTemplate from "../pages/RequestTemplate";
 import CreateNewTemplate from "../pages/RequestTemplate/Create";
 import QueueKontenDetail from "../pages/QueueKonten/QueueKontenDetail";
-import Setting from "../pages/Setting/Setting";
 import MMS from "../feature/MMS/MMS";
 import CreateTemplateMMS from "../feature/MMS/Action/CreateTemplateMMS";
 import FlashSMS from "../feature/FlashSMS/FlashSMS";
@@ -15,6 +14,7 @@ import EditTemplateMMS from "../feature/MMS/Action/EditTemplateMMS";
 import LogsApproval from "../feature/Logs/LogsApproval";
 import Payment from "../feature/Payment/Payment";
 import UserManagement from "../feature/UserManagement/UserManagement";
+
 
 const routes = [
   {
@@ -89,9 +89,9 @@ const routes = [
   },
   // Settings
   {
-    path: "/setting",
+    path:"/setting",
     component: Setting,
-  },
+  }
 ];
 
 export default routes;

@@ -1,7 +1,10 @@
 
-import { Form, Input, Col, Row } from 'antd';
+import { Form, Input, Col, Row,Card } from 'antd';
+import { useState } from 'react';
 import React from 'react';
 const Setting = () => {
+  const[data,setData]=useState();
+  localStorage.setItem(JSON.stringify(data))
   return (
     <div>
       <h1>Harga Chanel:</h1>
@@ -14,15 +17,19 @@ const Setting = () => {
               span: 8,
             }}
             wrapperCol={{
-              span: 20,
+              span: 15,
             }}
           >
           
             <Form.Item
               label="SMS"
+              id='SMS'
               
             >
-              <Input />
+              <Input
+              value={data?.Form}
+              onChange={(e)=>{setData({...data,Form: e.target.value})}}
+               />
             </Form.Item>
             <Form.Item
               label="Flash SMS"
@@ -63,7 +70,15 @@ const Setting = () => {
           </Form>
         </Col>
         <Col span={12}>
-         <Input placeholder="Borderless" bordered={false} />
+         <Card  
+         style={{
+         
+         paddingLeft:"20px"
+         }}>
+          <div>
+            
+          </div>
+         </Card> 
         </Col>
        </Row>
     </div>
