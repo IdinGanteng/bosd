@@ -1,10 +1,8 @@
 
-import { Form, Input, Col, Row,Card } from 'antd';
+import { Form, Input, Col, Row,Card,Button } from 'antd';
 import { useState } from 'react';
 import React from 'react';
 const Setting = () => {
-  const[data,setData]=useState();
-  localStorage.setItem(JSON.stringify(data))
   return (
     <div>
       <h1>Harga Chanel:</h1>
@@ -27,8 +25,6 @@ const Setting = () => {
               
             >
               <Input
-              value={data?.Form}
-              onChange={(e)=>{setData({...data,Form: e.target.value})}}
                />
             </Form.Item>
             <Form.Item
@@ -55,6 +51,16 @@ const Setting = () => {
             >
               <Input />
             </Form.Item>
+          </Form>
+          <br/>
+          <Form  name="basic"
+            labelCol={{
+              span: 5,
+            }}
+            wrapperCol={{
+              span: 10,
+            }}
+            >
             <Form.Item
               label="Max-Duration"
               
@@ -76,9 +82,39 @@ const Setting = () => {
          paddingLeft:"20px"
          }}>
           <div>
-            
+            <Form name="basic"
+            labelCol={{
+              span: 5,
+            }}
+            wrapperCol={{
+              span: 10,
+            }}>
+              <Form.Item label="SMS">
+                <Input bordered={false} />
+              </Form.Item>
+              <Form.Item label="Flash SMS">
+                <Input bordered={false} />
+              </Form.Item>
+              <Form.Item label="SIM Ads">
+                <Input bordered={false} />
+              </Form.Item>
+              <Form.Item label="MMS">
+                <Input bordered={false} />
+              </Form.Item>
+              <Form.Item label="Whats App">
+                <Input bordered={false} />
+              </Form.Item>
+            </Form>
           </div>
          </Card> 
+         <div style={{padding:"20px"}}>
+          <Button type="primary" danger>
+            Send Approval
+          </Button>
+          <br/>
+          <br/>
+          <Button danger>Cancel</Button>
+         </div>
         </Col>
        </Row>
     </div>
