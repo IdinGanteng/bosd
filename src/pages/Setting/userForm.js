@@ -19,13 +19,14 @@ const UserForm = () => {
     //   };
     const handleSubmit = (event)=>{
       event.preventDefault(chanel)
-      localStorage.setItem('user',JSON.stringify(chanel))
+      localStorage.setItem('user',JSON.stringify(chanel));
+      // console.log(chanel)
     }   
   return (
    
     <div>
     <h1>Harga Chanel:</h1>  
-
+    <br/>
     <Form
       // onFinish={handleSubmit}
       name="basic"
@@ -33,7 +34,7 @@ const UserForm = () => {
         span: 4,
       }}
       wrapperCol={{
-        span: 10,
+        span: 16,
       }}
     >
       <Form.Item
@@ -86,7 +87,7 @@ const UserForm = () => {
       <Form
       name="basic"
       labelCol={{
-        span: 3,
+        span: 5,
       }}
       wrapperCol={{
         span: 6,
