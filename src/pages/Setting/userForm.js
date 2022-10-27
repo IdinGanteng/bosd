@@ -1,8 +1,18 @@
 import { Form, Input, Button,Card } from 'antd';
 import { useState,useEffect } from 'react';
 import React from 'react';
+
+const GetDataFromLS=()=>{
+  const data = localStorage.getItem('chanel');
+  if(data){
+    return JSON.parse(data);
+  }else{
+    return[]
+  }
+}
+
 const UserForm = () => {   
-  const[chanel,setChanel]=useState([]);
+  const[chanel,setChanel]=useState(GetDataFromLS());
 
   const [SMS,setSMS]=useState('');
   const[FlashSMS,setFlashSMS]=useState('');
@@ -32,7 +42,7 @@ const UserForm = () => {
     localStorage.setItem('chanel',JSON.stringify(chanel));
   },[chanel])
   return (
-   
+   <div>
     <div>
     <h1>Harga Chanel:</h1>  
     <br/>
@@ -109,7 +119,49 @@ const UserForm = () => {
     </Form>
     </Form>    
       <Button onClick={handleSubmit}>Send Approval</Button>
+    
+
     </div>
+    <div>
+            <Card>
+        <Form labelCol={{
+                span: 4,
+              }}
+              wrapperCol={{
+                span: 16,
+              }}
+          >
+          <Form.Item label='SMS'>
+            {chanel.length>0&&<>
+              <div> 
+              <Input bordered={false} />
+              </div>  
+            </>}
+          </Form.Item>
+          <Form.Item label='Flash SMS'>
+           <div>
+           <Input bordered={false} />
+           </div> 
+          </Form.Item>
+          <Form.Item label='Sim Ads'>
+           <div>
+           <Input bordered={false} />
+           </div> 
+          </Form.Item>
+          <Form.Item label='MMS'>
+           <div>
+           <Input bordered={false} />
+           </div> 
+          </Form.Item>
+          <Form.Item label='WhatsApp'>
+           <div>
+           <Input bordered={false} />
+           </div> 
+          </Form.Item>
+        </Form>
+      </Card>
+    </div>
+</div>
   );
 };
 export default UserForm;
