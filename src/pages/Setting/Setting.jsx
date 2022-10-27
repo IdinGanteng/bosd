@@ -6,10 +6,7 @@ import UserList from './userList'
 const Setting = () => {
   return (
     <div>
-      <Row>
-        <Col span={12}><UserForm/></Col>
-        <Col span={12}><UserList/></Col>
-      </Row> 
+      <UserForm/>
     </div>
   )
 }

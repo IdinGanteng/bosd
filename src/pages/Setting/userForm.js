@@ -1,34 +1,43 @@
-import { Form, Input, Button } from 'antd';
-import { useState } from 'react';
+import { Form, Input, Button,Card } from 'antd';
+import { useState,useEffect } from 'react';
 import React from 'react';
-const UserForm = () => {
-    const [chanel,setChanel]=useState({
-        SMS:"",
-        FlashSMS:"",
-        SimAds:"",
-        MMS:"",
-        WhatsApp:"",
-        MaxDuration:"",
-        MaxBudged:"",
-    });
-     
-    // const handleChange = (event) => {
-    //     setChanel({ ...chanel, [event.target.chanel]: event.target.value });
-           
-     
-    //   };
-    const handleSubmit = (event)=>{
-      event.preventDefault(chanel)
-      localStorage.setItem('user',JSON.stringify(chanel));
-      // console.log(chanel)
-    }   
+const UserForm = () => {   
+  const[chanel,setChanel]=useState([]);
+
+  const [SMS,setSMS]=useState('');
+  const[FlashSMS,setFlashSMS]=useState('');
+  const[SimAds,setSimAds]=useState('');
+  const[MMS,setMMS]=useState('');
+  const[WhatsApp,setWhatsApp]=useState('');
+  const[MaxDuration,setMaxDuration]=useState('');
+  const[MaxBudget,setMaxBudget]=useState('');
+
+  const handleSubmit=(e)=>{
+    e.preventDefault();
+    let chanels={
+      SMS,FlashSMS,SimAds,MMS,
+      WhatsApp,MaxDuration,MaxBudget
+    }
+    setChanel([...chanel,chanels]);
+    setSMS('');
+    setFlashSMS('');
+    setSimAds('');
+    setMMS('');
+    setWhatsApp('');
+    setMaxDuration('');
+    setMaxBudget('');
+  }
+
+  useEffect(()=>{
+    localStorage.setItem('chanel',JSON.stringify(chanel));
+  },[chanel])
   return (
    
     <div>
     <h1>Harga Chanel:</h1>  
     <br/>
     <Form
-      // onFinish={handleSubmit}
+      onFinish={handleSubmit}
       name="basic"
       labelCol={{
         span: 4,
@@ -42,9 +51,7 @@ const UserForm = () => {
         label="SMS"
         name="SMS"
       >
-        <Input 
-        onChange={(event)=>setChanel({...chanel, SMS:event.target.value})}
-        />
+        <Input onChange={(e)=>setSMS(e.target.value)} value={SMS}/>
       </Form.Item>
 
       <Form.Item
@@ -52,36 +59,28 @@ const UserForm = () => {
         name="Flash SMS"
 
       >
-        <Input 
-        onChange={(event)=>setChanel({...chanel, FlashSMS:event.target.value})}
-        />
+        <Input onChange={(e)=>setFlashSMS(e.target.value)} value={FlashSMS}/>
       </Form.Item>
       <Form.Item
         label="Sim Ads"
         name="Sim Ads"
 
       >
-        <Input
-        onChange={(event)=>setChanel({...chanel, SimAds:event.target.value})}
-        />
+        <Input onChange={(e)=>setSimAds(e.target.value)} value={SimAds}/>
       </Form.Item>
       <Form.Item
         label="MMS"
         name="MMS"
 
       >
-        <Input
-        onChange={(event)=>setChanel({...chanel, MMS:event.target.value})}
-        />
+        <Input onChange={(e)=>setMMS(e.target.value)} value={MMS}/>
       </Form.Item>
       <Form.Item
         label="WhatsApp"
         name="WhatsApp"
 
       >
-        <Input
-        onChange={(event)=>setChanel({...chanel, WhatsApp:event.target.value})} 
-        />
+        <Input onChange={(e)=>setWhatsApp(e.target.value)} value={WhatsApp}/>
       </Form.Item>
 
       <Form
@@ -98,21 +97,17 @@ const UserForm = () => {
         name="Max-Duration"
 
       >
-        <Input
-        onChange={(event)=>setChanel({...chanel, MaxDuration:event.target.value})}
-        />
+        <Input onChange={(e)=>setMaxDuration(e.target.value)} value={MaxDuration}/>
       </Form.Item>
       <Form.Item
-        label="Max-Budged"
-        name="Max-Budged"
+        label="Max-Budget"
+        name="Max-Budget"
 
       >
-        <Input 
-        onChange={(event)=>setChanel({...chanel, MaxBudged:event.target.value})}
-        />
+        <Input onChange={(e)=>setMaxBudget(e.target.value)} value={MaxBudget}/>
       </Form.Item>
     </Form>
-    </Form>
+    </Form>    
       <Button onClick={handleSubmit}>Send Approval</Button>
     </div>
   );
