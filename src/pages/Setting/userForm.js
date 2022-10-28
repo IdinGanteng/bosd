@@ -1,5 +1,6 @@
 import { Form, Input, Button,Card } from 'antd';
 import { useState,useEffect } from 'react';
+import UserList from './userList';
 import React from 'react';
 
 const GetDataFromLS=()=>{
@@ -134,29 +135,37 @@ const UserForm = () => {
           <Form.Item label='SMS'>
             {chanel.length>0&&<>
               <div> 
-              <Input bordered={false} />
+              
               </div>  
             </>}
           </Form.Item>
           <Form.Item label='Flash SMS'>
-           <div>
-           <Input bordered={false} />
-           </div> 
+            {chanel.length>0&&<>
+              <div> 
+              <Input bordered={false} />
+              </div>  
+            </>} 
           </Form.Item>
           <Form.Item label='Sim Ads'>
-           <div>
-           <Input bordered={false} />
-           </div> 
+            {chanel.length>0&&<>
+              <div> 
+              <Input bordered={false} />
+              </div>  
+            </>}
           </Form.Item>
           <Form.Item label='MMS'>
-           <div>
-           <Input bordered={false} />
-           </div> 
+            {chanel.length>0&&<>
+              <div> 
+              <Input bordered={false} />
+              </div>  
+            </>} 
           </Form.Item>
           <Form.Item label='WhatsApp'>
-           <div>
-           <Input bordered={false} />
-           </div> 
+            {chanel.length>0&&<>
+              <div> 
+              <Input bordered={false} />
+              </div>  
+            </>} 
           </Form.Item>
         </Form>
       </Card>

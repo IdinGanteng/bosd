@@ -1,37 +1,19 @@
 import React from 'react'
-import { useEffect,useState } from 'react';
-import { Input,Card,Form } from 'antd';
 
-const UserList = () => {
+const UserList = ({chanel}) => {
 
-  return (
-    <div>
-      <Card>
-        <Form labelCol={{
-                span: 4,
-              }}
-              wrapperCol={{
-                span: 16,
-              }}
-          >
-          <Form.Item label='SMS'>
-           <Input bordered={false} />
-          </Form.Item>
-          <Form.Item label='Flash SMS'>
-           <Input bordered={false} />
-          </Form.Item>
-          <Form.Item label='Sim Ads'>
-           <Input bordered={false} />
-          </Form.Item>
-          <Form.Item label='MMS'>
-           <Input bordered={false} />
-          </Form.Item>
-          <Form.Item label='WhatsApp'>
-           <Input bordered={false} />
-          </Form.Item>
-        </Form>
-      </Card>
-    </div>
+  return chanel.map(chanels=>(
+   <div>
+
+     <h1>{chanels.SMS}</h1>
+     <h1>{chanels.FlashSMS}</h1>
+     <h1>{chanels.SimAds}</h1>
+     <h1>{chanels.MMS}</h1>
+     <h1>{chanels.WhatsApp}</h1>
+     <h1>{chanels.SMS}</h1>
+   </div>
+  )
+
   )
 }
 
