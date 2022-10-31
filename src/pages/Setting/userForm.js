@@ -1,6 +1,6 @@
 import { Form, Input, Button,Card } from 'antd';
 import { useState,useEffect } from 'react';
-import UserList from './userList';
+import UserList from './userList'
 import React from 'react';
 
 const GetDataFromLS=()=>{
@@ -38,6 +38,7 @@ const UserForm = () => {
     setMaxDuration('');
     setMaxBudget('');
   }
+ 
 
   useEffect(()=>{
     localStorage.setItem('chanel',JSON.stringify(chanel));
@@ -48,7 +49,7 @@ const UserForm = () => {
     <h1>Harga Chanel:</h1>  
     <br/>
     <Form
-      onFinish={handleSubmit}
+     
       name="basic"
       labelCol={{
         span: 4,
@@ -135,14 +136,14 @@ const UserForm = () => {
           <Form.Item label='SMS'>
             {chanel.length>0&&<>
               <div> 
-              
+                <UserList chanel={chanel}/>
               </div>  
             </>}
           </Form.Item>
           <Form.Item label='Flash SMS'>
             {chanel.length>0&&<>
               <div> 
-              <Input bordered={false} />
+                
               </div>  
             </>} 
           </Form.Item>
