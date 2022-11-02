@@ -1,6 +1,11 @@
 import { Form, Input, Button,Card } from 'antd';
+import {Col, Row} from 'antd';
 import { useState,useEffect } from 'react';
-import UserList from './userList'
+import {Sms} from './userList';
+import { FlashSms } from './userList';
+import { Simads } from './userList';
+import { Mms } from './userList';
+import { Whatsapp } from './userList';
 import React from 'react';
 
 const GetDataFromLS=()=>{
@@ -44,7 +49,8 @@ const UserForm = () => {
     localStorage.setItem('chanel',JSON.stringify(chanel));
   },[chanel])
   return (
-   <div>
+  <Row>
+    <Col span={12}>
     <div>
     <h1>Harga Chanel:</h1>  
     <br/>
@@ -124,9 +130,11 @@ const UserForm = () => {
     
 
     </div>
-    <div>
-            <Card>
-        <Form labelCol={{
+    </Col>
+    <Col span={12}>
+     <div>
+       <Card>
+         <Form labelCol={{
                 span: 4,
               }}
               wrapperCol={{
@@ -136,42 +144,43 @@ const UserForm = () => {
           <Form.Item label='SMS'>
             {chanel.length>0&&<>
               <div> 
-                <UserList chanel={chanel}/>
+                <Sms chanel={chanel}/>
               </div>  
             </>}
           </Form.Item>
           <Form.Item label='Flash SMS'>
             {chanel.length>0&&<>
               <div> 
-                
+                <FlashSms chanel={chanel}/>
               </div>  
             </>} 
           </Form.Item>
           <Form.Item label='Sim Ads'>
             {chanel.length>0&&<>
               <div> 
-              <Input bordered={false} />
+              <Simads chanel={chanel}/>
               </div>  
             </>}
           </Form.Item>
           <Form.Item label='MMS'>
             {chanel.length>0&&<>
               <div> 
-              <Input bordered={false} />
+              <Mms chanel={chanel}/>
               </div>  
             </>} 
           </Form.Item>
           <Form.Item label='WhatsApp'>
             {chanel.length>0&&<>
               <div> 
-              <Input bordered={false} />
+              <Whatsapp chanel={chanel}/>
               </div>  
             </>} 
           </Form.Item>
         </Form>
       </Card>
     </div>
-</div>
+    </Col>
+</Row>
   );
 };
 export default UserForm;

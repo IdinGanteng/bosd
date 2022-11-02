@@ -1,6 +1,6 @@
 import React from 'react'
 
-const UserList = ({chanel}) => {
+ export const Sms = ({chanel}) => {
 
   return chanel.map(chanels=>(
    <div>
@@ -11,6 +11,32 @@ const UserList = ({chanel}) => {
   )
 }
 
-export default UserList;
+
+
+
+ export const FlashSms =({chanel})=>{
+  return chanel.map(chanels=>(
+    <div><h1>{chanels.FlashSMS}</h1></div>
+  ))
+ };
+
+ export const  Simads=({chanel})=>{
+  return chanel.map(chanels=>(
+    <div><h1>{chanels.SimAds}</h1></div>
+  ))
+ };
+
+ export const Mms =({chanel})=>{
+  return chanel.map(chanels=>(
+    <div><h1>{chanels.MMS}</h1></div>
+  ))
+ };
+
+ export const Whatsapp =({chanel})=>{
+  return chanel.map(chanels=>(
+    <div><h1>{chanels.WhatsApp}</h1></div>
+  ))
+ };
+
 
  

@@ -50,7 +50,7 @@ const CTempFlashSMS = () => {
 
   // Form
   const onFinish = (values) => {
-    console.log(values);
+    localStorage.setItem('create',JSON.stringify(namaTemplate,kategori,kontenTemplate))
   };
   const onSearchKategory = (value) => {
     console.log("search:", value);
@@ -71,7 +71,7 @@ const CTempFlashSMS = () => {
 
   const handleFormCreateTemplateMMS = () => {
     let formMMS = [namaTemplate, kategori, kontenTemplate];
-    console.log(formMMS);
+    localStorage.setItem('create',JSON.stringify(formMMS));
     setTemplateMMS(formMMS);
   };
 
@@ -89,7 +89,7 @@ const CTempFlashSMS = () => {
           <Form
             {...layout}
             name="nest-messages"
-            onFinish={onFinish}
+            
             validateMessages={validateMessages}
           >
             <Form.Item
