@@ -14,6 +14,7 @@ import EditTemplateMMS from "../feature/MMS/Action/EditTemplateMMS";
 import LogsApproval from "../feature/Logs/LogsApproval";
 import Payment from "../feature/Payment/Payment";
 import UserManagement from "../feature/UserManagement/UserManagement";
+import {Setting} from"../Konten/Setting"
 
 
 const routes = [
@@ -90,7 +91,7 @@ const routes = [
   // Settings
   {
     path:"/setting",
-    component: Setting,
+    component:Setting
   }
 ];
 

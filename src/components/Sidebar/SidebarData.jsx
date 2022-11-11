@@ -33,8 +33,8 @@ export const SidebarData = [
   {
     title: "Template MMS",
     path: "/mms",
-    // icon: <HomeOutlined />,
-    icon: <FontAwesomeIcon icon={faMessage} />,
+    icon: <HomeOutlined />,
+    // icon: <FontAwesomeIcon icon={faMessage} />,
     cName: "nav-text",
     keys: 2,
   },
@@ -109,6 +109,9 @@ export const SidebarData = [
     keys: 8,
   },
   {
-    title:"Setting"
+    title:"Setting",
+    path:"/setting",
+    cName:"nav-text",
+    keys:9
   },
 ];
